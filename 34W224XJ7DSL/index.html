@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Snack Bar Sour and Sweet · Cotizaciones 2026</title>
+<meta name="description" content="Barras de snack para fiestas y eventos. Cotiza por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Open+Sans:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#6e0d0d; --wine-deep:#4d0808; --gold:#d4a22a; --gold-soft:#f0cf63; --cream:#efebe3; --paper:#fffdf9; --ink:#4d0808;
+  --display:"Bodoni Moda","Didot","Times New Roman",serif; --script:"Pinyon Script","Snell Roundhand",cursive; --body:"Open Sans",system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--wine);color:var(--cream);font:400 16px/1.6 var(--body);padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+main{max-width:560px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;line-height:1.1}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold-soft);outline-offset:3px}
+
+/* Hero: el logotipo es lo memorable */
+.hero{text-align:center;padding:56px 0 36px}
+.logo{display:inline-grid;justify-items:center;line-height:.82}
+.logo .big{font:500 clamp(84px,27vw,132px)/.82 var(--display);letter-spacing:-.04em;transform:scaleX(.78);transform-origin:center}
+.logo .script{font:400 clamp(44px,14vw,70px)/1 var(--script);margin:-.32em 0;position:relative;z-index:1;white-space:nowrap;text-shadow:0 2px 0 var(--wine)}
+.hero .by{font:400 15px var(--display);margin:22px 0 4px;letter-spacing:.1em}
+.hero h1{font:500 italic clamp(26px,8vw,34px)/1.2 var(--display);color:var(--gold-soft);margin-top:18px}
+.hero p{max-width:30ch;margin:10px auto 0;opacity:.9}
+.hero .wa{margin-top:26px}
+.intro{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
+/* Botones: relieve metálico, icono, brillo al pasar y efecto de presionado */
+.btn{--sh:#8f6609;position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;border-radius:999px;background:linear-gradient(180deg,#f8dc7e 0%,#d4a22a 52%,#bb880f 100%);color:var(--wine-deep);font:700 16px var(--body);letter-spacing:.01em;text-decoration:none;border:1px solid rgba(255,244,200,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 5px 0 var(--sh),0 12px 22px rgba(0,0,0,.35);cursor:pointer;transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%)}
+.btn:hover::after,.btn:focus-visible::after{transform:translateX(120%);transition:transform .7s}
+.btn:active{transform:translateY(4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 0 var(--sh),0 4px 10px rgba(0,0,0,.3)}
+.btn .ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.wa{min-height:60px;padding:0 24px 0 28px;font-size:17px}
+.btn.wa::after{animation:sheen 3.4s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.btn.ghost{background:rgba(240,207,99,.08);color:var(--cream);border:1.5px solid var(--gold);box-shadow:none}
+.btn.ghost::after{background:linear-gradient(105deg,transparent 35%,rgba(240,207,99,.35) 50%,transparent 65%)}
+.btn.ghost:hover{background:rgba(240,207,99,.2)}
+.btn.ghost:active{transform:scale(.97);box-shadow:none}
+#snow{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:6;opacity:0;transition:opacity .9s}
+.flake{position:absolute;top:0;left:0;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(130,185,240,.65);will-change:transform}
+
+h2.title{font-size:30px;color:var(--gold-soft);text-align:center;margin:44px 0 6px}
+.sub{text-align:center;margin:0 0 20px;opacity:.85}
+
+/* Selector de personas */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:1.5px solid var(--gold);border-radius:999px;max-width:340px;margin:0 auto 24px}
+.seg button{min-height:46px;border:0;border-radius:999px;background:transparent;color:var(--cream);font:600 16px var(--body);cursor:pointer;transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--wine-deep)}
+
+/* Paquetes: arco dorado como en el catálogo */
+.pack{background:var(--paper);color:var(--ink);border-radius:120px 120px 28px 28px;border:5px solid var(--gold);padding:44px 26px 28px;margin-bottom:22px;text-align:center;box-shadow:0 0 0 2px var(--wine),0 14px 30px rgba(0,0,0,.28)}
+.pack h3{font-size:28px}
+.price{font:700 46px/1.1 var(--display);margin:10px 0 0;font-variant-numeric:lining-nums}
+.price small{display:block;font:400 14px var(--body);opacity:.75;margin-top:2px}
+.pack ul{list-style:none;margin:20px auto 0;padding:0;text-align:left;max-width:300px}
+.pack li{position:relative;padding:7px 0 7px 22px;border-top:1px solid #e8d9b4}
+.pack li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--wine)}
+.pack .btn{--sh:#2c0303;width:100%;max-width:300px;margin-top:24px;background:linear-gradient(180deg,#8d1a1a 0%,#6e0d0d 55%,#560808 100%);color:var(--cream);border-color:rgba(212,162,42,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 5px 0 var(--sh),0 12px 20px rgba(77,8,8,.35)}
+.pack .btn .ic{stroke:var(--gold-soft)}
+.pack .btn:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 0 var(--sh)}
+
+/* Menús desplegables */
+details{border-top:1px solid rgba(240,207,99,.45)}
+details:last-of-type{border-bottom:1px solid rgba(240,207,99,.45)}
+summary{list-style:none;cursor:pointer;padding:16px 4px;font:700 20px var(--display);display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 26px var(--body);color:var(--gold-soft);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0 4px 18px;margin:0;list-style:none}
+.tags li{padding:6px 14px;border-radius:999px;background:rgba(239,235,227,.12);font-size:15px}
+.tags h4{flex-basis:100%;margin:8px 0 0;font:600 15px var(--body);color:var(--gold-soft)}
+
+.info{background:var(--paper);color:var(--ink);border-radius:28px;padding:24px 24px 14px;margin-top:6px}
+.info ul{margin:0;padding:0;list-style:none}
+.info li{padding:9px 0 9px 22px;position:relative;border-top:1px solid #e8d9b4}
+.info li:first-child{border-top:0}
+.info li::before{content:"";position:absolute;left:2px;top:19px;width:8px;height:8px;border-radius:50%;background:var(--wine)}
+.rent{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1.5px solid var(--gold);border-radius:28px;padding:22px;margin-top:22px}
+.rent h3{font-size:22px}
+.rent p{margin:4px 0 0;font-size:14px;opacity:.85}
+.rent .p{font:700 34px var(--display);color:var(--gold-soft);white-space:nowrap}
+
+.contact{text-align:center;padding:46px 0 24px}
+.contact .row{display:flex;flex-direction:column;gap:12px;align-items:center;margin-top:20px}
+.contact .tel{font:500 22px var(--display);letter-spacing:.06em}
+footer{text-align:center;font-size:13px;opacity:.7;padding-bottom:12px}
+
+/* Barra fija de contacto */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(77,8,8,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--gold);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center}
+.bar .btn{flex:1;max-width:240px;min-height:48px;padding:0 14px;font-size:15px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 3px 0 var(--sh),0 8px 14px rgba(0,0,0,.3)}
+.bar .btn.ghost{box-shadow:none}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+@media (prefers-reduced-motion:reduce){#fx,#snow{display:none}.btn.wa::after{animation:none}.intro{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="snow" aria-hidden="true"></div>
+<main>
+  <header class="hero">
+    <div class="logo" role="img" aria-label="Snack Bar Sour and Sweet">
+      <span class="big">SNACK</span>
+      <span class="script">Sour and Sweet</span>
+      <span class="big">BAR</span>
+    </div>
+    <p class="by">BY MR</p>
+    <h1>Cotizaciones 2026</h1>
+    <p>Barras de snack con sabor agridulce para tu fiesta o evento.</p>
+    <a class="btn wa" href="https://wa.me/529934532320?text=Hola%2C%20quiero%20cotizar%20una%20barra%20de%20snack" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+  </header>
+
+  <section aria-labelledby="t-barras">
+    <h2 class="title" id="t-barras">Elige tu barra</h2>
+    <p class="sub">Precio según el número de invitados.</p>
+    <div class="seg" role="group" aria-label="Número de personas">
+      <button type="button" data-n="0" aria-pressed="true">50 personas</button>
+      <button type="button" data-n="1" aria-pressed="false">100 personas</button>
+    </div>
+    <div id="packs"></div>
+  </section>
+
+  <section aria-labelledby="t-sab">
+    <h2 class="title" id="t-sab">Variedad de sabores</h2>
+    <p class="sub">Toca cada categoría para ver las opciones.</p>
+    <details>
+      <summary>Cacahuates</summary>
+      <ul class="tags"><li>De queso</li><li>Japoneses</li><li>Salados</li><li>Enchilados</li></ul>
+    </details>
+    <details>
+      <summary>Sabritas</summary>
+      <ul class="tags"><li>Papas onduladas saladas</li><li>Papas onduladas adobadas</li><li>Papas onduladas salsa negra</li></ul>
+    </details>
+    <details>
+      <summary>Gomitas y dulces</summary>
+      <ul class="tags"><li>Gomitas de azúcar</li><li>Gomitas de mango</li><li>Gomitas de gusano dulce</li><li>Gomitas de gusano agridulce</li><li>Gomitas de aro de durazno</li><li>Lunetas de chocolate</li></ul>
+    </details>
+    <details>
+      <summary>Frutas a elegir</summary>
+      <ul class="tags"><li>Jícama</li><li>Zanahoria</li><li>Pepino</li><li>Piña</li></ul>
+    </details>
+    <details>
+      <summary>Toppings para donas</summary>
+      <ul class="tags"><h4>Polvo de sabor</h4><li>Oreo</li><li>Polvorones</li><li>Chokis</li><li>Canelitas</li><li>Príncipe</li></ul>
+    </details>
+    <details id="helados">
+      <summary>Paletas y helados</summary>
+      <ul class="tags"><h4>Paletas de hielo</h4><li>Fresa</li><li>Uva</li><li>Chamoy</li><li>Piña</li><li>Chicle</li><h4>Sabores de helado</h4><li>Cookies</li><li>Chocolate</li><li>Napolitano</li><li>Fresa-vainilla</li><li>Vainilla</li><li>Fresa</li><li>Limón</li></ul>
+    </details>
+  </section>
+
+  <section aria-labelledby="t-esp">
+    <h2 class="title" id="t-esp">Condiciones del servicio</h2>
+    <div class="info">
+      <ul>
+        <li>Vasos con etiquetas personalizadas según la temática de la fiesta.</li>
+        <li>3 horas de servicio, a partir de la hora en que se solicite la barra.</li>
+        <li>El traslado tiene costo extra si la ubicación no es céntrica.</li>
+        <li>Se aparta con el 50% del monto total. Si cancelas el servicio, no se devuelve el anticipo.</li>
+        <li>Contratación con mínimo 1 semana de anticipación.</li>
+        <li>Todos los paquetes incluyen salsa picante, chamoy, miguelito y desechables (servilletas y tenedores).</li>
+        <li>Puedes cambiar un producto por otro de los demás paquetes por $100.00 extra.</li>
+      </ul>
+    </div>
+    <div class="rent">
+      <div>
+        <h3>Renta de la barra</h3>
+        <p>6 horas de servicio. No incluye traslado (costo extra). El letrero led se renta aparte.</p>
+      </div>
+      <div class="p">$1,300</div>
+    </div>
+  </section>
+
+  <section class="contact" aria-labelledby="t-con">
+    <h2 class="title" id="t-con" style="margin-top:0">Cotiza tu evento</h2>
+    <a class="tel" href="tel:+529934532320">993 453 2320</a>
+    <div class="row">
+      <a class="btn" href="https://wa.me/529934532320?text=Hola%2C%20quiero%20cotizar%20una%20barra%20de%20snack" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <a class="btn ghost" href="https://www.instagram.com/sourandsweet_sb" target="_blank" rel="noopener">Instagram @sourandsweet_sb</a>
+    </div>
+  </section>
+  <footer>Snack Bar Sour and Sweet · by MR</footer>
+</main>
+
+<div class="bar">
+  <a class="btn ghost" href="tel:+529934532320">Llamar</a>
+  <a class="btn" href="https://wa.me/529934532320?text=Hola%2C%20quiero%20cotizar%20una%20barra%20de%20snack" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+var PACKS=[
+ {n:"Barra mixta",p:[2000,4000],i:["2 tipos de cacahuates","2 tipos de gomitas","2 frutas a elección","2 tipos de sabritas","1 dulce sorpresa"]},
+ {n:"Barra dulce",p:[2500,5000],i:["2 tipos de cacahuates","2 tipos de gomitas","Donas minis","2 frutas a elegir","1 topping a elegir para las donas","1 dulce especial"]},
+ {n:"Barra de hielo",p:[3000,6000],i:["2 tipos de cacahuates","2 tipos de gomitas","3 frutas a elección","2 tipos de sabritas","1 a 2 sabores de helados o paletas de hielo","2 dulces especiales"]}
+];
+var N=["50 personas","100 personas"], box=document.getElementById("packs"), idx=0;
+function money(v){return "$"+v.toLocaleString("es-MX")+".00"}
+function render(){
+  box.innerHTML=PACKS.map(function(k,j){
+    var msg=encodeURIComponent("Hola, quiero cotizar la "+k.n.toLowerCase()+" para "+N[idx]);
+    return '<article class="pack" data-i="'+j+'"><h3>'+k.n+'</h3><p class="price"><span class="amt" data-v="'+k.p[idx]+'">'+money(k.p[idx])+'</span><small>'+N[idx]+'</small></p><ul>'+
+      k.i.map(function(x){return "<li>"+x+"</li>"}).join("")+
+      '</ul><a class="btn" href="https://wa.me/529934532320?text='+msg+'" target="_blank" rel="noopener">Quiero esta barra</a></article>';
+  }).join("");
+  animatePacks();
+  watchBars();
+  decorate();
+}
+document.querySelectorAll(".seg button").forEach(function(b){
+  b.addEventListener("click",function(){
+    idx=+b.dataset.n;
+    document.querySelectorAll(".seg button").forEach(function(o){o.setAttribute("aria-pressed",o===b)});
+    render();
+  });
+});
+/* ---------- Animaciones: GSAP + ScrollTrigger ---------- */
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var G=!!(window.gsap&&window.ScrollTrigger)&&!reduce;
+var packST=[];
+function animatePacks(){
+  if(!G)return;
+  packST.forEach(function(t){t.kill()});
+  gsap.set(".pack",{opacity:0,y:70,scale:.94});
+  packST=ScrollTrigger.batch(".pack",{start:"top 90%",once:true,onEnter:function(els){
+    gsap.to(els,{opacity:1,y:0,scale:1,duration:.9,ease:"power3.out",stagger:.15,clearProps:"transform,opacity"});
+    /* Precio: cuenta desde el valor anterior (o desde 0) hasta el nuevo */
+    els.forEach(function(el){
+      var a=el.querySelector(".amt"),to=+a.dataset.v,i=el.dataset.i,o={v:shown[i]||0};
+      a.textContent=money(o.v);
+      gsap.to(o,{v:to,duration:1.3,delay:.2,ease:"power2.out",
+        onUpdate:function(){a.textContent=money(Math.round(o.v))},
+        onComplete:function(){shown[i]=to}});
+    });
+  }});
+}
+if(G){
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* 1) Entrada de la portada: el logo se arma pieza por pieza */
+  gsap.set(".logo .big",{scaleX:.78});
+  var tl=gsap.timeline({defaults:{ease:"power3.out"}});
+  tl.from(".logo .big:first-child",{y:-50,opacity:0,duration:.9})
+    .from(".logo .script",{clipPath:"inset(-30% 100% -30% -5%)",duration:1.1,ease:"power2.inOut"},"-=.4")
+    .from(".logo .big:last-child",{y:50,opacity:0,duration:.9},"-=.9")
+    .from([".hero .by",".hero h1",".hero p:not(.by)",".hero .wa"],{y:22,opacity:0,duration:.7,stagger:.12},"-=.3");
+
+  /* 2) El logo sube y se desvanece al hacer scroll (scrub) */
+  gsap.to(".hero .logo",{yPercent:-14,opacity:.25,ease:"none",
+    scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+
+  /* 3) Títulos y subtítulos aparecen al entrar en pantalla */
+  gsap.utils.toArray("h2.title").forEach(function(h){
+    gsap.from([h,h.nextElementSibling],{y:30,opacity:0,duration:.8,ease:"power3.out",stagger:.1,
+      scrollTrigger:{trigger:h,start:"top 88%",once:true}});
+  });
+
+  /* 4) Menús de sabores y condiciones en cascada */
+  ScrollTrigger.batch("details",{start:"top 92%",once:true,onEnter:function(els){
+    gsap.from(els,{y:26,opacity:0,duration:.6,stagger:.1,ease:"power2.out"});
+  }});
+  ScrollTrigger.batch(".info li",{start:"top 92%",once:true,onEnter:function(els){
+    gsap.from(els,{x:-18,opacity:0,duration:.5,stagger:.08,ease:"power2.out"});
+  }});
+  gsap.from(".rent",{scale:.92,opacity:0,duration:.8,ease:"back.out(1.4)",
+    scrollTrigger:{trigger:".rent",start:"top 92%",once:true}});
+  gsap.from(".contact .tel, .contact .btn",{y:24,opacity:0,duration:.7,stagger:.12,ease:"power3.out",
+    scrollTrigger:{trigger:".contact",start:"top 80%",once:true}});
+
+  /* 5) Al abrir un menú, las opciones saltan una por una */
+  document.querySelectorAll("details").forEach(function(d){
+    d.addEventListener("toggle",function(){
+      if(d.open)gsap.from(d.querySelectorAll(".tags li"),{scale:.75,opacity:0,duration:.35,stagger:.04,ease:"back.out(2)"});
+      ScrollTrigger.refresh();
+    });
+  });
+}
+/* ---------- Fondo de partículas: destellos dorados ✨ y copos de nieve ❄ ---------- */
+var shown={};
+var cv=document.getElementById("fx"),cx=cv&&cv.getContext("2d"),snowOn=false,mix=0,W=0,H=0,parts=[],iceIO,last=0;
+function fxSize(){var d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+function mk(t){return{t:t,x:Math.random()*W,y:Math.random()*H,r:t?3+Math.random()*5:1.6+Math.random()*3,v:t?.35+Math.random()*.7:.12+Math.random()*.25,ph:Math.random()*6.28,s:.6+Math.random()*1.2,a:.4+Math.random()*.5,rot:Math.random()*6.28}}
+function fxInit(){fxSize();var n=W<600?24:44;parts=[];for(var i=0;i<n;i++){parts.push(mk(0))}}
+function star(x,y,r){cx.beginPath();cx.moveTo(x,y-r);cx.quadraticCurveTo(x,y,x+r,y);cx.quadraticCurveTo(x,y,x,y+r);cx.quadraticCurveTo(x,y,x-r,y);cx.quadraticCurveTo(x,y,x,y-r);cx.fill()}
+function flake(x,y,r,rot){cx.save();cx.translate(x,y);cx.rotate(rot);cx.beginPath();for(var i=0;i<6;i++){cx.rotate(Math.PI/3);cx.moveTo(0,0);cx.lineTo(r,0);cx.moveTo(r*.6,0);cx.lineTo(r*.85,r*.25);cx.moveTo(r*.6,0);cx.lineTo(r*.85,-r*.25)}cx.stroke();cx.restore()}
+function fxLoop(t){
+  requestAnimationFrame(fxLoop);
+  var dt=Math.min((t-last)/16.7||1,3);last=t;
+  mix+=((snowOn?1:0)-mix)*.05*dt;
+  for(var c=0;c<3;c++)cur[c]+=(tgt[c]-cur[c])*.06*dt;
+  var cc="rgb("+(cur[0]|0)+","+(cur[1]|0)+","+(cur[2]|0)+")";
+  cx.clearRect(0,0,W,H);
+  cx.lineWidth=1.4;cx.lineCap="round";
+  for(var i=0;i<parts.length;i++){
+    var p=parts[i],k=p.t?mix:1-mix;
+    if(k<.02)continue;
+    p.ph+=.02*dt*p.s;
+    if(p.t){p.y+=p.v*dt*1.6;p.x+=Math.sin(p.ph)*.5*dt;p.rot+=.004*dt;if(p.y>H+10){p.y=-10;p.x=Math.random()*W}}
+    else{p.y-=p.v*dt;p.x+=Math.sin(p.ph)*.15*dt;if(p.y<-10){p.y=H+10;p.x=Math.random()*W}}
+    cx.globalAlpha=k*p.a*(p.t?1:.3+.5*Math.abs(Math.sin(p.ph)));
+    if(p.t){cx.strokeStyle="#a9d3f5";flake(p.x,p.y,p.r,p.rot)}
+    else{cx.fillStyle=cc;star(p.x,p.y,p.r)}
+  }
+  cx.globalAlpha=1;
+}
+/* Nieve solo mientras la barra de hielo está en pantalla */
+var ratios=[0,0,0],helOpen=false,helSeen=false,BC=[[240,207,99],[255,158,196],[240,207,99]],tgt=BC[0],cur=BC[0].slice(),snowEl=document.getElementById("snow"),snowAnims=[],snowT;
+/* Modo según lo que se ve: dorado (mixta), rosa (dulce), nieve (hielo o menú de helados abierto) */
+function applyMode(){
+  var best=-1,m=.3;
+  ratios.forEach(function(r,i){if(r>m){m=r;best=i}});
+  tgt=BC[best<0?0:best];
+  var on=best===2||(helOpen&&helSeen);
+  if(on!==snowOn){snowOn=on;setSnow(on)}
+}
+function watchBars(){
+  if(!cv||!("IntersectionObserver" in window))return;
+  if(iceIO)iceIO.disconnect();
+  ratios=[0,0,0];
+  iceIO=new IntersectionObserver(function(es){es.forEach(function(e){ratios[+e.target.dataset.i]=e.intersectionRatio});applyMode()},{threshold:[0,.15,.3,.45,.6,.8,1]});
+  box.querySelectorAll(".pack").forEach(function(p){iceIO.observe(p)});
+}
+/* Nieve estilo alphardex: círculos blancos suaves con tamaño, desenfoque y velocidad distintos */
+function buildSnow(){
+  var n=innerWidth<600?55:90;
+  for(var i=0;i<n;i++){
+    var d=document.createElement("i"),s=2+Math.random()*7,x=Math.random()*100,dx=(Math.random()-.5)*26,sw=(Math.random()-.5)*8,dur=21000-s*1500+Math.random()*5000;
+    d.className="flake";
+    d.style.cssText="width:"+s+"px;height:"+s+"px;opacity:"+(.4+Math.random()*.55)+";filter:blur("+(s>6.5?1.4:s<3?.5:0)+"px)";
+    snowEl.appendChild(d);
+    var a=d.animate([
+      {transform:"translate3d("+x+"vw,-5vh,0)"},
+      {transform:"translate3d("+(x+dx/2+sw)+"vw,50vh,0)",offset:.5},
+      {transform:"translate3d("+(x+dx)+"vw,105vh,0)"}
+    ],{duration:dur,delay:-Math.random()*dur,iterations:Infinity});
+    a.pause();snowAnims.push(a);
+  }
+}
+function setSnow(on){
+  if(!snowEl)return;
+  clearTimeout(snowT);
+  if(on){snowEl.style.opacity=1;snowAnims.forEach(function(a){a.play()})}
+  else{snowEl.style.opacity=0;snowT=setTimeout(function(){snowAnims.forEach(function(a){a.pause()})},1000)}
+}
+if(snowEl&&!reduce&&snowEl.animate)buildSnow();
+var hel=document.getElementById("helados");
+if(hel){
+  hel.addEventListener("toggle",function(){helOpen=hel.open;applyMode()});
+  if("IntersectionObserver" in window)new IntersectionObserver(function(es){helSeen=es[0].isIntersecting;applyMode()},{threshold:.1}).observe(hel);
+}
+/* Iconos de los botones */
+var IC={wa:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',tel:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',ig:'<rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/>',go:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>'};
+function ic(k){return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>'}
+function decorate(){
+  document.querySelectorAll(".btn:not([data-d])").forEach(function(a){
+    var h=a.getAttribute("href")||"";
+    a.dataset.d=1;
+    a.insertAdjacentHTML("afterbegin",ic(h.indexOf("tel:")===0?"tel":h.indexOf("instagram")>-1?"ig":"wa"));
+    if(a.classList.contains("wa"))a.insertAdjacentHTML("beforeend",ic("go"));
+  });
+}
+if(cv&&cx&&!reduce){
+  fxInit();
+  var lw=innerWidth;
+  addEventListener("resize",function(){if(innerWidth!==lw){lw=innerWidth;fxInit()}else{fxSize()}});
+  requestAnimationFrame(fxLoop);
+}
+render();
+</script>
+</body>
+</html>
