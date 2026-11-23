@@ -37,7 +37,3 @@ La URL tendrá un formato parecido a:
 - Modifica colores y estilos en `styles.css`.
 - Las barras de habilidades usan `data-level` en cada elemento `.skill`.
 - Para quitar o cambiar una librería, revisa los enlaces CDN al final de `index.html`.
-
-## Antes de publicar
-
-Verifica nombres oficiales de empresas, fechas, denominación exacta de los títulos y cualquier descripción de responsabilidades. No se agregaron números de cédula ni datos personales adicionales.
