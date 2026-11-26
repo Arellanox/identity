@@ -450,6 +450,122 @@
       0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
       100% { transform: translate(var(--tx), var(--ty)) scale(1.25) rotate(var(--rot)); opacity: 0; }
     }
+
+    /* ===== Música: cajita de música ===== */
+    .music-whisper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      background: #FFFFFF;
+      border: 2.5px dashed var(--accent);
+      border-radius: 24px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text-main);
+      box-shadow: 0 6px 15px var(--cloud-shadow);
+      transition: transform 0.2s, background 0.4s, border-color 0.4s;
+    }
+    .music-whisper:active { transform: scale(0.97); }
+    .mw-icon {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      animation: noteSway 2.6s ease-in-out infinite;
+    }
+    .mw-text b {
+      display: block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    .mw-text small {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+    .music-whisper.on {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .music-whisper.on .mw-icon {
+      background: #FFFFFF;
+      animation: noteBeat 1.2s ease-in-out infinite;
+    }
+    @keyframes noteSway { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+    @keyframes noteBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+    /* Botón flotante (pantalla de la carta) */
+    .music-fab {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .music-fab.show { display: flex; }
+    .music-fab button {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2.5px dashed var(--stitch-color);
+      background: #FFFFFF;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px var(--cloud-shadow);
+    }
+    .music-fab.on button {
+      border-style: solid;
+      border-color: var(--primary);
+      animation: noteBeat 1.2s ease-in-out infinite;
+    }
+    .music-fab .bubble {
+      background: #FFFFFF;
+      border: 2px dashed var(--accent);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-style: italic;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 16px;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+    .music-fab .bubble.show { opacity: 1; transform: none; }
+
+    /* Lagrimitas suaves que caen mientras suena la música */
+    .tear {
+      position: fixed;
+      top: -30px;
+      font-size: 16px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      animation: tearFall linear forwards;
+    }
+    @keyframes tearFall {
+      0% { transform: translateY(0); opacity: 0; }
+      15% { opacity: 0.55; }
+      100% { transform: translateY(105vh); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -481,6 +597,13 @@
           <p class="subtitle">
             Zoe guardó un abrazo de algodón y un mensaje secreto dentro de esta tarjeta solo para ti.
           </p>
+          <button class="music-whisper" id="whisperBtn" onclick="toggleMusic(event)" aria-pressed="false">
+            <span class="mw-icon" id="mwIcon">🎵</span>
+            <span class="mw-text">
+              <b id="mwTitle">Dale cuerda a la cajita de música</b>
+              <small id="mwSub">shhh… con musiquita, a las maestras se les escapan lagrimitas 🥹</small>
+            </span>
+          </button>
           <button class="btn-open" onclick="openCard()">
             <span>Abrir mi carta de despedida</span>
             <span>☁️✨</span>
@@ -542,6 +665,11 @@
     </div>
   </div>
 
+  <div class="music-fab" id="musicFab">
+    <div class="bubble" id="fabBubble">psst… ¿y la musiquita? 🎵</div>
+    <button id="fabBtn" onclick="toggleMusic(event)" aria-label="Activar o pausar la música">🔇</button>
+  </div>
+
   <script>
     const floaters = ["☁️", "🦋", "🩵", "⭐", "🌈", "🧸"];
     const mainEmoji = "🦋";
@@ -593,6 +721,13 @@
       if (navigator.vibrate) {
         navigator.vibrate([45, 35, 70]);
       }
+
+      document.getElementById("musicFab").classList.add("show");
+      if (!Music.isPlaying) {
+        const bubble = document.getElementById("fabBubble");
+        setTimeout(() => bubble.classList.add("show"), 1800);
+        setTimeout(() => bubble.classList.remove("show"), 8000);
+      }
     }
 
     let hugs = 0;
@@ -611,6 +746,222 @@
       if (navigator.vibrate) {
         navigator.vibrate(35);
       }
+    }
+    /* ===== MÚSICA ===== */
+    // Para usar una canción real, escribe aquí la ruta o URL de tu archivo (ej. "despedida.mp3").
+    // Si lo dejas vacío, suena una cajita de música generada en el navegador (sin archivos).
+    const AUDIO_FILE = "despedida.mp3";
+
+    const Music = (() => {
+      const EIGHTH = 0.46;                       // duración de cada nota (seg)
+      const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+      // Progresión en 6/8: Do – Lam – Fa – Sol – Do – Mim – Fa – Sol
+      const PROG = [
+        { bass: 48, tones: [60, 64, 67, 72, 76] },
+        { bass: 45, tones: [60, 64, 69, 72, 76] },
+        { bass: 41, tones: [60, 65, 69, 72, 77] },
+        { bass: 43, tones: [62, 67, 71, 74, 79] },
+        { bass: 48, tones: [60, 64, 67, 72, 76] },
+        { bass: 40, tones: [59, 64, 67, 71, 76] },
+        { bass: 41, tones: [60, 65, 69, 72, 77] },
+        { bass: 43, tones: [62, 67, 71, 74, 79] }
+      ];
+      const P1 = [0, 1, 2, 3, 2, 1];
+      const P2 = [0, 2, 1, 4, 3, 2];
+      const MEL = [72, 74, 76, 79, 81, 84, 86];  // pentatónica de Do
+
+      let ctx, master, wet, timer, audio, fadeTimer;
+      let step = 0, bar = 0, nextTime = 0, mel = 3, playing = false;
+
+      function makeReverb() {
+        const len = Math.floor(ctx.sampleRate * 2.8);
+        const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+        for (let c = 0; c < 2; c++) {
+          const d = buf.getChannelData(c);
+          for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+        }
+        const conv = ctx.createConvolver();
+        conv.buffer = buf;
+        const g = ctx.createGain();
+        g.gain.value = 0.45;
+        conv.connect(g);
+        g.connect(master);
+        return conv;
+      }
+
+      function init() {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = 0;
+        master.connect(ctx.destination);
+        wet = makeReverb();
+      }
+
+      // Una nota de cajita de música: seno + armónico agudo que se apaga rápido
+      function pluck(f, t, vel, dur) {
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(vel, t + 0.005);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        const o = ctx.createOscillator();
+        o.type = "sine";
+        o.frequency.value = f;
+        const o2 = ctx.createOscillator();
+        o2.type = "sine";
+        o2.frequency.value = f * 3;
+        const g2 = ctx.createGain();
+        g2.gain.setValueAtTime(0.35, t);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + dur * 0.25);
+        o.connect(g);
+        o2.connect(g2);
+        g2.connect(g);
+        g.connect(master);
+        g.connect(wet);
+        o.start(t); o2.start(t);
+        o.stop(t + dur + 0.05); o2.stop(t + dur + 0.05);
+      }
+
+      // Colchón suave bajo cada compás
+      function pad(ch, t) {
+        const len = EIGHTH * 6;
+        const lp = ctx.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.value = 700;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(0.028, t + 0.9);
+        g.gain.linearRampToValueAtTime(0.0001, t + len + 0.9);
+        lp.connect(g);
+        g.connect(master);
+        g.connect(wet);
+        [0, 1, 2].forEach(i => {
+          const o = ctx.createOscillator();
+          o.type = "triangle";
+          o.frequency.value = mtof(ch.tones[i] - 12);
+          o.connect(lp);
+          o.start(t);
+          o.stop(t + len + 1);
+        });
+      }
+
+      function schedule() {
+        while (nextTime < ctx.currentTime + 0.5) {
+          const ch = PROG[bar % PROG.length];
+          const t = nextTime + Math.random() * 0.012;
+          if (step === 0) {
+            pluck(mtof(ch.bass), t, 0.11, 3);
+            pad(ch, t);
+          }
+          const pat = bar % 2 ? P2 : P1;
+          pluck(mtof(ch.tones[pat[step]]), t, 0.085, 2.2);
+
+          // melodía que camina por la escala, con silencios
+          if ((step === 0 && Math.random() < 0.8) || (step === 3 && Math.random() < 0.6)) {
+            const moves = [-2, -1, 0, 1, 1, 2];
+            mel = Math.min(MEL.length - 1, Math.max(0, mel + moves[Math.floor(Math.random() * moves.length)]));
+            pluck(mtof(MEL[mel]), t, 0.1, 2.6);
+          }
+
+          nextTime += EIGHTH;
+          if (++step === 6) { step = 0; bar++; }
+        }
+      }
+
+      function fadeAudio(target, done) {
+        clearInterval(fadeTimer);
+        fadeTimer = setInterval(() => {
+          const d = target - audio.volume;
+          if (Math.abs(d) < 0.03) {
+            audio.volume = target;
+            clearInterval(fadeTimer);
+            if (done) done();
+          } else {
+            audio.volume = Math.min(1, Math.max(0, audio.volume + Math.sign(d) * 0.03));
+          }
+        }, 100);
+      }
+
+      async function start() {
+        playing = true;
+        if (AUDIO_FILE) {
+          if (!audio) { audio = new Audio(AUDIO_FILE); audio.loop = true; audio.volume = 0; }
+          audio.play().catch(() => {});
+          fadeAudio(0.7);
+          return;
+        }
+        if (!ctx) init();
+        try { await ctx.resume(); } catch (e) {}
+        step = 0;
+        nextTime = ctx.currentTime + 0.15;
+        clearInterval(timer);
+        timer = setInterval(schedule, 120);
+        schedule();
+        const now = ctx.currentTime;
+        master.gain.cancelScheduledValues(now);
+        master.gain.setValueAtTime(master.gain.value, now);
+        master.gain.linearRampToValueAtTime(0.8, now + 2.5);
+      }
+
+      function stop() {
+        playing = false;
+        if (AUDIO_FILE) { fadeAudio(0, () => audio.pause()); return; }
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        master.gain.cancelScheduledValues(now);
+        master.gain.setValueAtTime(master.gain.value, now);
+        master.gain.linearRampToValueAtTime(0, now + 0.8);
+        setTimeout(() => { if (!playing) { clearInterval(timer); ctx.suspend(); } }, 900);
+      }
+
+      // Pausa automática si se cambia de pestaña o se bloquea la pantalla
+      function hold() { if (AUDIO_FILE) { audio && audio.pause(); } else if (ctx) { ctx.suspend(); } }
+      function release() { if (AUDIO_FILE) { audio && audio.play().catch(() => {}); } else if (ctx) { ctx.resume(); } }
+
+      return { start, stop, hold, release, get isPlaying() { return playing; } };
+    })();
+
+    document.addEventListener("visibilitychange", () => {
+      if (!Music.isPlaying) return;
+      document.hidden ? Music.hold() : Music.release();
+    });
+
+    let tearTimer = null;
+    function spawnTear() {
+      if (!document.getElementById("cardExperience").classList.contains("visible")) return;
+      const t = document.createElement("div");
+      t.className = "tear";
+      t.textContent = "💧";
+      t.style.left = (6 + Math.random() * 88) + "%";
+      t.style.animationDuration = (7 + Math.random() * 4) + "s";
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 11500);
+    }
+
+    function syncMusicUI() {
+      const on = Music.isPlaying;
+      document.getElementById("whisperBtn").classList.toggle("on", on);
+      document.getElementById("whisperBtn").setAttribute("aria-pressed", on);
+      document.getElementById("mwIcon").textContent = on ? "🎶" : "🎵";
+      document.getElementById("mwTitle").textContent = on
+        ? "La cajita ya está cantando"
+        : "Dale cuerda a la cajita de música";
+      document.getElementById("mwSub").textContent = on
+        ? "listo… ahora sí, abre la carta. Ten un pañuelito cerca 🤧"
+        : "shhh… con musiquita, a las maestras se les escapan lagrimitas 🥹";
+      document.getElementById("musicFab").classList.toggle("on", on);
+      document.getElementById("fabBtn").textContent = on ? "🎶" : "🔇";
+      document.getElementById("fabBubble").classList.remove("show");
+
+      clearInterval(tearTimer);
+      if (on) tearTimer = setInterval(spawnTear, 2300);
+    }
+
+    async function toggleMusic(e) {
+      if (e) e.stopPropagation();
+      if (Music.isPlaying) Music.stop(); else await Music.start();
+      syncMusicUI();
+      if (navigator.vibrate) navigator.vibrate(25);
     }
   </script>
 </body>
