@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Para Maestra Shelby • De parte de Zoe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-sky: linear-gradient(180deg, #FDE8EE 0%, #FDF2E9 52%, #F3EBFF 100%);
+      --felt-card: #FFF7F9;
+      --felt-card-inner: #FFF0F4;
+      --stitch-color: #F4A7B9;
+      --primary: #E87A96;
+      --primary-soft: #FCE0E7;
+      --secondary: #F2A488;
+      --accent: #B89EE8;
+      --text-main: #4A4453;
+      --text-muted: #7C7387;
+      --cloud-shadow: rgba(232, 122, 150, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg-sky);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 24px 16px 48px;
+      position: relative;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.65) 1px, transparent 0),
+        radial-gradient(rgba(255,255,255,0.4) 1px, transparent 0),
+        var(--bg-sky);
+      background-size: 24px 24px, 16px 16px, 100% 100%;
+      background-position: 0 0, 8px 8px, 0 0;
+    }
+
+    .sky-clouds {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      background: #FFFFFF;
+      border-radius: 100px;
+      opacity: 0.78;
+      box-shadow:
+        0 10px 25px rgba(180, 190, 210, 0.18),
+        inset 0 -6px 12px rgba(235, 240, 250, 0.9);
+      animation: driftCloud linear infinite;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: #FFFFFF;
+      border-radius: 50%;
+    }
+    .cloud.c1 {
+      width: 120px; height: 42px; top: 8%; left: -140px;
+      animation-duration: 34s;
+    }
+    .cloud.c1::before { width: 56px; height: 56px; top: -26px; left: 18px; }
+    .cloud.c1::after { width: 42px; height: 42px; top: -18px; left: 62px; }
+
+    .cloud.c2 {
+      width: 150px; height: 48px; top: 26%; left: -170px;
+      opacity: 0.65;
+      animation-duration: 44s;
+      animation-delay: -15s;
+    }
+    .cloud.c2::before { width: 68px; height: 68px; top: -32px; left: 24px; }
+    .cloud.c2::after { width: 52px; height: 52px; top: -22px; left: 78px; }
+
+    .cloud.c3 {
+      width: 105px; height: 36px; bottom: 14%; left: -130px;
+      opacity: 0.72;
+      animation-duration: 38s;
+      animation-delay: -22s;
+    }
+    .cloud.c3::before { width: 48px; height: 48px; top: -22px; left: 16px; }
+    .cloud.c3::after { width: 38px; height: 38px; top: -15px; left: 52px; }
+
+    @keyframes driftCloud {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(100vw + 320px)); }
+    }
+
+    .floating-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .floater {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0.45;
+      animation: floatUp 14s infinite ease-in-out;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.5; }
+      80% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) rotate(180deg); opacity: 0; }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 425px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Estilo Fieltro / Algodón con costura */
+    .felt-panel {
+      background: var(--felt-card);
+      border-radius: 36px;
+      padding: 12px;
+      box-shadow:
+        0 18px 36px var(--cloud-shadow),
+        0 4px 10px rgba(0, 0, 0, 0.04),
+        inset 0 2px 6px rgba(255, 255, 255, 0.95);
+      border: 2px solid #FFFFFF;
+      position: relative;
+    }
+
+    .felt-stitched {
+      background: var(--felt-card-inner);
+      border: 2.5px dashed var(--stitch-color);
+      border-radius: 28px;
+      padding: 30px 22px;
+      position: relative;
+      box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.8);
+    }
+
+    .felt-button {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+    .felt-button.tl { top: 12px; left: 12px; }
+    .felt-button.tr { top: 12px; right: 12px; }
+    .felt-button.bl { bottom: 12px; left: 12px; }
+    .felt-button.br { bottom: 12px; right: 12px; }
+
+    .envelope-screen {
+      text-align: center;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .envelope-screen.hidden {
+      display: none;
+    }
+
+    .badge-nfc {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.76rem;
+      padding: 7px 16px;
+      border-radius: 50px;
+      border: 1.5px dashed var(--stitch-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .plush-icon {
+      width: 108px;
+      height: 108px;
+      margin: 6px auto 18px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      border: 3px dashed var(--stitch-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      box-shadow:
+        0 12px 24px var(--cloud-shadow),
+        inset 0 -4px 10px rgba(0,0,0,0.03);
+      animation: softFloat 3s infinite ease-in-out;
+      cursor: pointer;
+    }
+
+    @keyframes softFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(3deg); }
+    }
+
+    h1 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .highlight-name {
+      color: var(--primary);
+      display: block;
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-top: 4px;
+      text-shadow: 0 2px 0 #FFFFFF;
+    }
+
+    .subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 26px;
+      padding: 0 6px;
+    }
+
+    .btn-open {
+      background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #FFFFFF;
+      border: 3px solid #FFFFFF;
+      width: 100%;
+      padding: 16px 22px;
+      border-radius: 50px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.12rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow:
+        0 10px 22px var(--cloud-shadow),
+        inset 0 2px 4px rgba(255,255,255,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .btn-open:active {
+      transform: scale(0.96);
+    }
+
+    .card-experience {
+      display: none;
+      animation: revealCard 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .card-experience.visible {
+      display: block;
+    }
+
+    @keyframes revealCard {
+      from { opacity: 0; transform: translateY(25px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .header-tag {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .avatar-patch {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 46px;
+      box-shadow: 0 8px 20px var(--cloud-shadow);
+      border: 3px dashed var(--stitch-color);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.62rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+      text-shadow: 0 1px 0 #FFFFFF;
+    }
+
+    .card-date {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #FFFFFF;
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 50px;
+      margin-top: 4px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .letter-body {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 20px 18px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-main);
+      margin: 18px 0;
+      border: 2px dashed var(--primary-soft);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+    }
+
+    .letter-body p {
+      margin-bottom: 13px;
+    }
+
+    .letter-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hug-section {
+      text-align: center;
+      margin: 18px 0 8px;
+    }
+
+    .btn-hug {
+      background: #FFFFFF;
+      border: 2.5px dashed var(--primary);
+      color: var(--primary);
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 15px var(--cloud-shadow);
+      transition: all 0.2s;
+    }
+
+    .btn-hug:active {
+      transform: scale(0.94);
+      background: var(--primary-soft);
+    }
+
+    .hug-counter {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .signature-box {
+      text-align: right;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 2px dashed var(--primary-soft);
+    }
+
+    .signature-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.32rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .signature-sub {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    /* Certificado en fieltro / algodón pastel */
+    .certificate-wrapper {
+      margin-top: 18px;
+      background: #FFFDF8;
+      border-radius: 32px;
+      padding: 10px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 14px 28px rgba(217, 167, 115, 0.16);
+    }
+
+    .certificate-card {
+      background: #FFF9EE;
+      border: 2.5px dashed #E5B567;
+      border-radius: 24px;
+      padding: 20px 18px;
+      text-align: center;
+    }
+
+    .cert-medal {
+      font-size: 40px;
+      margin-bottom: 4px;
+    }
+
+    .cert-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      color: #B97A2E;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .cert-text {
+      font-size: 0.9rem;
+      color: #7D6344;
+      line-height: 1.52;
+    }
+
+    .cert-teacher {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.35rem;
+      color: #D4882A;
+      margin: 6px 0;
+    }
+
+    .burst-emoji {
+      position: fixed;
+      pointer-events: none;
+      font-size: 26px;
+      z-index: 999;
+      animation: burstAnim 1.3s ease-out forwards;
+    }
+
+    @keyframes burstAnim {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(1.25) rotate(var(--rot)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sky-clouds">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+  </div>
+
+  <div class="floating-bg" id="floatingBg"></div>
+
+  <div class="container">
+    <!-- PANTALLA 1: TARJETA DE FIELTRO / ALGODÓN -->
+    <div class="envelope-screen" id="envelopeScreen">
+      <div class="felt-panel">
+        <div class="felt-stitched">
+          <span class="felt-button tl"></span>
+          <span class="felt-button tr"></span>
+          <span class="felt-button bl"></span>
+          <span class="felt-button br"></span>
+
+          <div class="badge-nfc">☁️ Mensaje Suave • Tarjeta Mágica</div>
+          <div class="plush-icon" onclick="openCard()">🧸</div>
+          <h1>
+            Para una maestra muy dulce:
+            <span class="highlight-name">Maestra Shelby</span>
+          </h1>
+          <p class="subtitle">
+            Zoe guardó un abrazo de algodón y un mensaje secreto dentro de esta tarjeta solo para ti.
+          </p>
+          <button class="btn-open" onclick="openCard()">
+            <span>Abrir mi carta de despedida</span>
+            <span>☁️✨</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANTALLA 2: CARTA ABIERTA -->
+    <div class="card-experience" id="cardExperience">
+      <div class="felt-panel">
+        <div class="felt-stitched">
+          <span class="felt-button tl"></span>
+          <span class="felt-button tr"></span>
+          <span class="felt-button bl"></span>
+          <span class="felt-button br"></span>
+
+          <div class="header-tag">
+            <div class="avatar-patch">🌷</div>
+            <h2 class="card-title">¡Gracias, Maestra Shelby!</h2>
+            <div class="card-date">Con mucho cariño • Tu alumna Zoe</div>
+          </div>
+
+          <div class="letter-body">
+            
+      <p>Querida <strong>Maestra Shelby</strong>, hoy que termina tu etapa de prácticas con nosotros, quiero darte las gracias por cada día tan bonito que compartiste conmigo.</p>
+      <p>Gracias por tu dulzura, por ayudarme a aprender cosas nuevas, por escucharme con tanta paciencia y por hacer que ir a la escuela fuera siempre muy divertido.</p>
+      <p>Vas a ser una maestra extraordinaria porque enseñas con el corazón. ¡Te voy a extrañar muchísimo!</p>
+    
+          </div>
+
+          <div class="hug-section">
+            <button class="btn-hug" onclick="sendHug(event)">
+              <span>🤗</span>
+              <span>Recibir un abrazo de algodón de Zoe</span>
+            </button>
+            <div class="hug-counter" id="hugCounter">Toca el botón para llenar tu nube de cariño</div>
+          </div>
+
+          <div class="signature-box">
+            <div class="signature-name">Con amor, Zoe 💖</div>
+            <div class="signature-sub">¡Nunca te voy a olvidar!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificado en fieltro / algodón pastel -->
+      <div class="certificate-wrapper">
+        <div class="certificate-card">
+          <div class="cert-medal">🏅</div>
+          <div class="cert-title">Certificado Oficial de Super Maestra</div>
+          <div class="cert-text">Otorgado con todo el cariño a</div>
+          <div class="cert-teacher">Maestra Shelby</div>
+          <div class="cert-text">
+            Por enseñar con dulzura, por su paciencia infinita, sus sonrisas y por dejar una huella suave e inolvidable en el corazón de <strong>Zoe</strong>. ¡Mucho éxito en tu camino!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const floaters = ["☁️", "🌸", "🩷", "✨", "🌷", "🧸"];
+    const mainEmoji = "🌷";
+
+    const bgContainer = document.getElementById("floatingBg");
+    for (let i = 0; i < 14; i++) {
+      const span = document.createElement("span");
+      span.className = "floater";
+      span.textContent = floaters[i % floaters.length];
+      span.style.left = Math.random() * 92 + "%";
+      span.style.animationDuration = (11 + Math.random() * 8) + "s";
+      span.style.animationDelay = (-Math.random() * 14) + "s";
+      span.style.fontSize = (18 + Math.random() * 12) + "px";
+      bgContainer.appendChild(span);
+    }
+
+    function triggerBurst(x, y, count = 22) {
+      const emojis = ["☁️", "💖", "✨", "🌸", mainEmoji, "🧸"];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("div");
+        el.className = "burst-emoji";
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 65 + Math.random() * 150;
+        const tx = Math.cos(angle) * distance + "px";
+        const ty = Math.sin(angle) * distance - 35 + "px";
+        const rot = (Math.random() * 360 - 180) + "deg";
+
+        el.style.setProperty("--tx", tx);
+        el.style.setProperty("--ty", ty);
+        el.style.setProperty("--rot", rot);
+
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1300);
+      }
+    }
+
+    function openCard() {
+      const envelope = document.getElementById("envelopeScreen");
+      const experience = document.getElementById("cardExperience");
+      envelope.classList.add("hidden");
+      experience.classList.add("visible");
+
+      triggerBurst(window.innerWidth / 2, window.innerHeight / 3, 28);
+
+      if (navigator.vibrate) {
+        navigator.vibrate([45, 35, 70]);
+      }
+    }
+
+    let hugs = 0;
+    function sendHug(e) {
+      hugs++;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      triggerBurst(centerX, centerY, 18);
+
+      const counterEl = document.getElementById("hugCounter");
+      counterEl.textContent = hugs === 1
+        ? "¡1 abrazo de algodón enviado a Zoe! ☁️💖"
+        : `¡${hugs} abrazos de algodón enviados! ☁️💖✨`;
+
+      if (navigator.vibrate) {
+        navigator.vibrate(35);
+      }
+    }
+  </script>
+</body>
+</html>
